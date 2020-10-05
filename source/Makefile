@@ -6,10 +6,10 @@ BUILD ?= MPI
 
 ifneq "$(wildcard ../camb/forutils)" ""
 FORUTILSPATH ?= $(shell pwd)/../camb/forutils
-else 
+else
 ifneq "$(wildcard ./forutils)" ""
 FORUTILSPATH ?= $(shell pwd)/forutils
-else 
+else
 ifneq "$(wildcard ../forutils)" ""
 FORUTILSPATH ?= $(shell pwd)/../forutils
 endif
@@ -51,7 +51,7 @@ endif
 ifneq ($(NERSC_HOST),)
 #setting for Edison/Cori on NERSC
 MPIF90C = ftn
-FFLAGS = -fpp -qopenmp -dynamic -axMIC-AVX512,CORE-AVX2  
+FFLAGS = -fpp -qopenmp -dynamic -axMIC-AVX512,CORE-AVX2
 else
 ifeq ($(STATIC),YES)
 #so you can re-distribute the binary to another machine
@@ -175,7 +175,7 @@ OBJFILES = $(OUTPUT_DIR)/ObjectParamNames.o $(OUTPUT_DIR)/settings.o \
 	$(OUTPUT_DIR)/MCMC.o $(OUTPUT_DIR)/minimize.o $(OUTPUT_DIR)/SampleCollector.o $(OUTPUT_DIR)/GeneralSetup.o
 
 
-SUPERNOVAE = $(OUTPUT_DIR)/supernovae_Union2.o $(OUTPUT_DIR)/supernovae_SNLS.o $(OUTPUT_DIR)/supernovae_JLA.o
+SUPERNOVAE = $(OUTPUT_DIR)/supernovae_Union2.o $(OUTPUT_DIR)/supernovae_SNLS.o $(OUTPUT_DIR)/supernovae_JLA.o $(OUTPUT_DIR)/supernovae_BBC.o
 SZ = $(OUTPUT_DIR)/szcounts.o
 
 DATAMODULES = $(PLANCKLIKEFILES) $(OUTPUT_DIR)/mpk.o $(OUTPUT_DIR)/wigglez.o \
@@ -252,6 +252,7 @@ $(OUTPUT_DIR)/CosmologyConfig.o: $(PARAMETERIZATION) $(OUTPUT_DIR)/GeneralSetup.
 $(OUTPUT_DIR)/supernovae_Union2.o: $(OUTPUT_DIR)/Likelihood_Cosmology.o
 $(OUTPUT_DIR)/supernovae_SNLS.o: $(OUTPUT_DIR)/Likelihood_Cosmology.o
 $(OUTPUT_DIR)/supernovae_JLA.o: $(OUTPUT_DIR)/Likelihood_Cosmology.o
+$(OUTPUT_DIR)/supernovae_BBC.o: $(OUTPUT_DIR)/Likelihood_Cosmology.o
 
 $(OUTPUT_DIR)/cliklike_CamSpec.o: $(OUTPUT_DIR)/temp_like.o
 
